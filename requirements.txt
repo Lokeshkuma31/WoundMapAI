@@ -28,3 +28,4 @@ streamlit>=1.30.0
 
 # Quality assurance and testing
 pytest>=7.4.0
+

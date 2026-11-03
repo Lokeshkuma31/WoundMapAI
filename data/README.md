@@ -25,3 +25,4 @@ data/
 ## Privacy & Ethical Compliance
 - Under no circumstances should unconsented clinical photographs or protected health information (PHI) be committed to GitHub.
 - Manifest CSVs store relative paths and anonymized metadata only.
+

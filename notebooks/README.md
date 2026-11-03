@@ -17,3 +17,4 @@ This directory contains standalone, reproducible Jupyter notebooks designed to b
   !pip install -r requirements.txt
   ```
 - Checkpoints and large artifacts are designated for saving to Google Drive (`/content/drive/MyDrive/WoundMapAI/checkpoints/`).
+

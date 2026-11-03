@@ -24,3 +24,4 @@ def convert_color_space(img_rgb: np.ndarray, target_space: str) -> np.ndarray:
         return np.array(lab_img, dtype=np.float32)
     else:
         raise ValueError(f"Unsupported color space: {target_space}")
+

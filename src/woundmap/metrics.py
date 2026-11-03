@@ -45,3 +45,4 @@ def compute_iou_score(y_true: np.ndarray, y_pred: np.ndarray, num_classes: int, 
         iou_per_class[cls] = float(iou)
         
     return iou_per_class
+

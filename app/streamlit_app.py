@@ -37,3 +37,4 @@ if uploaded_file is not None:
     with col2:
         st.subheader("Predicted Tissue Segmentation")
         st.info("Model checkpoint will be integrated upon completion of Phase 4 & Phase 7.")
+

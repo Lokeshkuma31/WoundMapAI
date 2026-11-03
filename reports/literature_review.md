@@ -18,3 +18,4 @@ Accurate surface area quantification of these tissue types is a key clinical pro
 - **RGB**: Correlated color channels sensitive to illumination intensity variations.
 - **HSV**: Decouples chrominance (Hue) and saturation from intensity (Value), potentially improving invariance to light level.
 - **CIE $L^*a^*b^*$**: Perceptually uniform color representation separating luminance ($L^*$) from opponent color axes ($a^*$, $b^*$).
+

@@ -7,3 +7,4 @@
 ## 2. Dataset Scale & Generalizability
 - Small sample sizes in wound benchmarks risk overfitting to specific clinical camera setups, demographics, or ulcer etiologies.
 - Ambiguities in ground-truth boundaries exist due to inter-observer variability among clinical dermatologists and wound nurses.
+

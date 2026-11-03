@@ -13,3 +13,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Established repository directory hierarchy: `configs/`, `data/`, `notebooks/`, `src/woundmap/`, `tests/`, `app/`, `reports/`, `presentation/`.
 - Configured baseline project dependencies in `requirements.txt`.
 - Documented environment integration capabilities (GitHub CLI, Google Colab hand-off, local GPU status).
+

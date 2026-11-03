@@ -26,3 +26,4 @@ def mask_to_rgb(mask: np.ndarray, palette: Dict[int, Tuple[str, Tuple[int, int, 
     for class_id, (_, color) in palette.items():
         rgb_arr[mask == class_id] = color
     return rgb_arr
+

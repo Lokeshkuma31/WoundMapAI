@@ -11,3 +11,4 @@
 - Fixed dataset split (patient/wound isolated) across all runs.
 - Identical random seeds, architectures (U-Net with ResNet-34 backbone), learning rates, losses, and epoch budgets.
 - Test set strictly held out until model training and validation selection are complete.
+

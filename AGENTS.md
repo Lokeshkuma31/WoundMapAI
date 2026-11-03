@@ -42,3 +42,4 @@ $$\text{inspect} \longrightarrow \text{plan} \longrightarrow \text{implement} \l
 - **Routine actions:** inspect files, create new files, edit code on working branch, run non-destructive tests, generate reports and diagrams.
 - **Ask first:** install unusual dependencies, download large datasets, access external services, run expensive GPU jobs, upload data, change repository settings, publish or deploy.
 - **Never:** commit secrets, bypass access controls, use unconsented clinical data, fabricate metrics, or make destructive changes without approval.
+

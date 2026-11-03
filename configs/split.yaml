@@ -13,3 +13,4 @@ split:
     train_manifest: "data/manifests/train.csv"
     val_manifest: "data/manifests/val.csv"
     test_manifest: "data/manifests/test.csv"
+

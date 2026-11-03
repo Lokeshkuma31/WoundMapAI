@@ -9,3 +9,4 @@
 | HSV | TBD | TBD | TBD | TBD | TBD | TBD |
 | CIELAB | TBD | TBD | TBD | TBD | TBD | TBD |
 | RGB + CLAHE | TBD | TBD | TBD | TBD | TBD | TBD |
+

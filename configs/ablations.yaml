@@ -30,3 +30,4 @@ conditions:
     description: "CIE L*a*b* representation with L-channel adaptive histogram equalization"
     color_space: "CIELAB"
     illumination_norm: "clahe_l"
+
