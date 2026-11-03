@@ -4,7 +4,7 @@
 
 | Phase | Description | Status | Evidence Link | Blocker | Human Approval |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **0 Bootstrap** | Tool audit, repo structure, rules, git init | **IN PROGRESS** | [Phase 0 Setup Evidence](#phase-0-bootstrap) | None | Pending Confirmation |
+| **0 Bootstrap** | Tool audit, repo structure, rules, git init | **READY FOR GATE APPROVAL** | [Phase 0 Setup Evidence](#phase-0-bootstrap) | None | Pending User Sign-Off |
 | **1 Dataset Audit** | Inspect WoundTissue tree, pairs, class mapping | NOT STARTED | - | Pending Phase 0 | Gate 1 Required |
 | **2 Research Protocol** | Literature review, hypotheses, split policy | NOT STARTED | - | Pending Phase 1 | Gate 2 Required |
 | **3 Preprocessing & EDA**| Transforms, colour conversions, EDA overlays | NOT STARTED | - | Pending Phase 2 | Gate 3 Required |
@@ -67,4 +67,6 @@
 
 ## 3. Decision Log
 - **2026-11-03**: Adopted *WoundMap AI Antigravity Autonomous Execution Blueprint* as the governing specification.
-- **2026-11-03**: Validated local runtime: Windows 11, Python 3.14.2, PyTorch CPU, NVIDIA GeForce GTX 1650 (CUDA not hooked into 3.14 venv). Colab designated as primary GPU compute target via runnable notebooks + checklist.
+- **2026-11-03**: Validated local runtime: Windows 11, Python 3.14.2, PyTorch CPU, NVIDIA GeForce GTX 1650 (Driver 592.82, CUDA 13.1 capability). Unit testing pipeline verified via `python -m unittest discover tests` (6 tests executed, 1 skipped by contract).
+- **2026-11-03**: Created private remote repository `https://github.com/Lokeshkuma31/WoundMapAI`. Pushed `main` and feature branch `phase/00-bootstrap`.
+- **2026-11-03**: Confirmed execution model: Antigravity writes 100% runnable self-contained Colab notebooks with 1-click execution badges, checkpoints saved to Drive/local. User provides dataset archive/link for Phase 1.
