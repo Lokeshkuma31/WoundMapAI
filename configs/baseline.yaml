@@ -1,0 +1,31 @@
+# Baseline Segmentation Model Configuration
+experiment:
+  name: "baseline_unet_rgb"
+  color_space: "RGB"
+  illumination_norm: "none"
+  seed: 42
+
+model:
+  architecture: "unet"
+  encoder_name: "resnet34"
+  encoder_weights: "imagenet"
+  in_channels: 3
+  num_classes: 4
+
+training:
+  batch_size: 8
+  epochs: 50
+  learning_rate: 0.0003
+  weight_decay: 0.0001
+  loss: "dice_ce_composite"
+  loss_weights:
+    dice: 0.5
+    ce: 0.5
+  early_stopping:
+    patience: 10
+    metric: "val_macro_dice"
+    mode: "max"
+
+checkpoints:
+  save_dir: "outputs/checkpoints/baseline"
+  best_checkpoint: "best_baseline_unet.pt"

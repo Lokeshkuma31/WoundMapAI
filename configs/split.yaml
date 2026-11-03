@@ -1,0 +1,15 @@
+# Dataset Split Configuration
+split:
+  strategy: "patient_grouped" # Falls back to "stratified_wound" if patient IDs absent; subject to Phase 1 audit
+  random_seed: 42
+  ratios:
+    train: 0.70
+    val: 0.15
+    test: 0.15
+  leakage_prevention:
+    disallow_same_patient_across_splits: true
+    disallow_same_wound_across_splits: true
+  manifest_output:
+    train_manifest: "data/manifests/train.csv"
+    val_manifest: "data/manifests/val.csv"
+    test_manifest: "data/manifests/test.csv"

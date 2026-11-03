@@ -1,0 +1,32 @@
+# Controlled Ablations Matrix Configuration
+common:
+  architecture: "unet"
+  encoder_name: "resnet34"
+  num_classes: 4
+  epochs: 50
+  batch_size: 8
+  learning_rate: 0.0003
+  seed: 42
+  split_source: "data/manifests/split_metadata.json"
+
+conditions:
+  - id: "cond_01_rgb_raw"
+    description: "Baseline standard RGB without illumination normalization"
+    color_space: "RGB"
+    illumination_norm: "none"
+  - id: "cond_02_hsv_raw"
+    description: "HSV representation without illumination normalization"
+    color_space: "HSV"
+    illumination_norm: "none"
+  - id: "cond_03_cielab_raw"
+    description: "CIE L*a*b* representation without illumination normalization"
+    color_space: "CIELAB"
+    illumination_norm: "none"
+  - id: "cond_04_rgb_norm"
+    description: "RGB representation with selected illumination normalization (e.g. CLAHE or Gray-World)"
+    color_space: "RGB"
+    illumination_norm: "clahe"
+  - id: "cond_05_cielab_norm"
+    description: "CIE L*a*b* representation with L-channel adaptive histogram equalization"
+    color_space: "CIELAB"
+    illumination_norm: "clahe_l"

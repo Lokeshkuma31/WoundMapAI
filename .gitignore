@@ -1,0 +1,51 @@
+# Byte-compiled / optimized / C-extensions
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Caches and environments
+.pytest_cache/
+.ipynb_checkpoints/
+.venv/
+venv/
+ENV/
+env/
+
+# Raw dataset archives, patient data, and images (never commit raw medical data)
+data/raw/
+data/WoundTissue/
+data/processed/
+*.zip
+*.tar
+*.tar.gz
+*.png
+*.jpg
+*.jpeg
+*.tif
+*.tiff
+!reports/figures/*.png
+!reports/figures/*.jpg
+
+# Checkpoints, model weights, and heavy binary outputs
+outputs/
+checkpoints/
+*.pt
+*.pth
+*.onnx
+*.pkl
+*.bin
+
+# Secrets and environment configurations
+.env
+.env.*
+*.secret
+*.pem
+*.key
+credentials.json
+token.json
+
+# OS and IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

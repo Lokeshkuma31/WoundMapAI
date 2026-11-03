@@ -1,0 +1,31 @@
+# Dataset Configuration for WoundTissue
+dataset:
+  name: "WoundTissue"
+  official_url: "" # Populated during Phase 1 audit
+  description: "Multi-class wound tissue segmentation dataset"
+  raw_dir: "data/raw/WoundTissue"
+  manifest_path: "data/manifests/manifest.csv"
+  
+# Class definitions will be confirmed during Phase 1 audit from actual ground truth masks
+classes:
+  - id: 0
+    name: "background"
+    rgb_color: [0, 0, 0]
+    description: "Surrounding intact skin or background"
+  - id: 1
+    name: "granulation"
+    rgb_color: [255, 0, 0]
+    description: "Healthy pink/red tissue indicative of healing"
+  - id: 2
+    name: "slough"
+    rgb_color: [255, 255, 0]
+    description: "Yellow/white moist devitalized tissue"
+  - id: 3
+    name: "necrotic"
+    rgb_color: [0, 0, 0]
+    description: "Black/brown dry devitalized eschar"
+
+image_specs:
+  target_height: 512
+  target_width: 512
+  input_channels: 3
