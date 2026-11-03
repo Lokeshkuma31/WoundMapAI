@@ -2,32 +2,62 @@
 common:
   architecture: "unet"
   encoder_name: "resnet34"
-  num_classes: 4
+  encoder_weights: "imagenet"
+  num_classes: 7
+  class_names: ["background", "granulation", "slough", "necrotic", "maceration", "bone", "tendon"]
+  target_height: 512
+  target_width: 512
   epochs: 50
   batch_size: 8
   learning_rate: 0.0003
+  weight_decay: 0.0001
   seed: 42
-  split_source: "data/manifests/split_metadata.json"
+  split_source: "data/manifests/manifest.csv"
+  loss: "dice_ce_composite"
+
+clahe_parameters:
+  clip_limit: 2.0
+  tile_grid_size: [8, 8]
 
 conditions:
-  - id: "cond_01_rgb_raw"
-    description: "Baseline standard RGB without illumination normalization"
+  - id: "RUN-01"
+    name: "baseline_srgb_raw"
+    description: "Standard sRGB input without illumination normalization"
     color_space: "RGB"
     illumination_norm: "none"
-  - id: "cond_02_hsv_raw"
+    clahe_channel: null
+
+  - id: "RUN-02"
+    name: "hsv_raw"
     description: "HSV representation without illumination normalization"
     color_space: "HSV"
     illumination_norm: "none"
-  - id: "cond_03_cielab_raw"
+    clahe_channel: null
+
+  - id: "RUN-03"
+    name: "cielab_raw"
     description: "CIE L*a*b* representation without illumination normalization"
     color_space: "CIELAB"
     illumination_norm: "none"
-  - id: "cond_04_rgb_norm"
-    description: "RGB representation with selected illumination normalization (e.g. CLAHE or Gray-World)"
+    clahe_channel: null
+
+  - id: "RUN-04"
+    name: "srgb_clahe"
+    description: "sRGB representation with CLAHE applied to all channels"
     color_space: "RGB"
     illumination_norm: "clahe"
-  - id: "cond_05_cielab_norm"
-    description: "CIE L*a*b* representation with L-channel adaptive histogram equalization"
-    color_space: "CIELAB"
-    illumination_norm: "clahe_l"
+    clahe_channel: "all"
 
+  - id: "RUN-05"
+    name: "hsv_clahe_v"
+    description: "HSV representation with CLAHE applied strictly to V (Value/Luminance) channel"
+    color_space: "HSV"
+    illumination_norm: "clahe"
+    clahe_channel: "V"
+
+  - id: "RUN-06"
+    name: "cielab_clahe_l"
+    description: "CIE L*a*b* representation with CLAHE applied strictly to L* (Luminance) channel"
+    color_space: "CIELAB"
+    illumination_norm: "clahe"
+    clahe_channel: "L"

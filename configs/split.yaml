@@ -1,16 +1,24 @@
 # Dataset Split Configuration
 split:
-  strategy: "patient_grouped" # Falls back to "stratified_wound" if patient IDs absent; subject to Phase 1 audit
+  strategy: "class_stratified" # Disclosed in Phase 1: Patient IDs absent in public release
+  total_samples: 13
   random_seed: 42
+  counts:
+    train: 9
+    val: 2
+    test: 2
   ratios:
-    train: 0.70
-    val: 0.15
-    test: 0.15
+    train: 0.692
+    val: 0.154
+    test: 0.154
+  partitions:
+    train_ids: ["img (1)", "img (2)", "img (5)", "img (6)", "img (8)", "img (12)", "img (23)", "img (28)", "img (31)"]
+    val_ids: ["img (29)", "img (30)"]
+    test_ids: ["img (20)", "img (27)"]
   leakage_prevention:
-    disallow_same_patient_across_splits: true
-    disallow_same_wound_across_splits: true
-  manifest_output:
-    train_manifest: "data/manifests/train.csv"
-    val_manifest: "data/manifests/val.csv"
-    test_manifest: "data/manifests/test.csv"
-
+    no_overlap_across_splits: true
+    test_set_strictly_held_out: true
+  manifest_files:
+    train: "data/manifests/train.csv"
+    val: "data/manifests/val.csv"
+    test: "data/manifests/test.csv"

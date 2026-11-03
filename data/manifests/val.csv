@@ -1,0 +1,3 @@
+image_id,filename,image_path,mask_path,height,width,total_pixels,pixels_background,pct_background,pixels_granulation,pct_granulation,pixels_slough,pct_slough,pixels_necrotic,pct_necrotic,pixels_maceration,pct_maceration,pixels_bone,pct_bone,classes_present,split
+img (29),img (29).png,data\raw\WoundTissue\image\img (29).png,data\raw\WoundTissue\label\img (29).png,128,128,16384,5666,34.58,4185,25.54,0,0.0,0,0.0,6533,39.87,0,0.0,background;granulation;maceration,val
+img (30),img (30).png,data\raw\WoundTissue\image\img (30).png,data\raw\WoundTissue\label\img (30).png,158,158,24964,9586,38.4,0,0.0,15378,61.6,0,0.0,0,0.0,0,0.0,background;slough,val

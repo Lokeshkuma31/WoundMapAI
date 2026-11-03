@@ -4,7 +4,15 @@ All notable changes to the WoundMap AI research prototype will be documented in 
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [Unreleased] - Phase 1: Dataset Acquisition & Audit
+## [Unreleased] - Phase 2: Literature Review & Experiment Protocol
+### Added
+- Authored comprehensive literature review (`reports/literature_review.md`) citing clinical wound scoring (RYKW, PUSH, BWAT), hemoglobin/melanin biophysics, prior deep learning benchmarks (Kabir et al. 2025, FUSC, Medetec), and mathematical color models (sRGB, HSV, CIELAB, CLAHE).
+- Developed formal experiment protocol (`reports/experiment_protocol.md`) defining research questions, formal hypotheses ($H_1, H_2, H_0$), controlled ablation matrix (6 runs), dual macro-averaging, and explicit absent-class handling policies.
+- Generated locked dataset partition manifests (`data/manifests/train.csv` [9 images], `val.csv` [2 images], `test.csv` [2 images]) ensuring balanced class representation and leakage prevention.
+- Added automated split integrity test suite (`tests/test_split_integrity.py`), confirming 9/9 passing tests with zero partition overlap.
+- Updated declarative experiment configurations (`configs/split.yaml`, `configs/baseline.yaml`, `configs/ablations.yaml`).
+
+## [0.2.0] - Phase 1: Dataset Acquisition & Audit
 ### Added
 - Downloaded and audited `akabircs/WoundTissue` dataset release into `data/raw/WoundTissue/` (git-ignored).
 - Generated comprehensive pairing manifest `data/manifests/manifest.csv` with per-image dimensions, class pixel counts, and percentages.

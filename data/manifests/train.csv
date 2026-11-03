@@ -1,0 +1,10 @@
+image_id,filename,image_path,mask_path,height,width,total_pixels,pixels_background,pct_background,pixels_granulation,pct_granulation,pixels_slough,pct_slough,pixels_necrotic,pct_necrotic,pixels_maceration,pct_maceration,pixels_bone,pct_bone,classes_present,split
+img (1),img (1).png,data\raw\WoundTissue\image\img (1).png,data\raw\WoundTissue\label\img (1).png,314,314,98596,80050,81.19,15834,16.06,0,0.0,0,0.0,0,0.0,2712,2.75,background;granulation;bone,train
+img (12),img (12).png,data\raw\WoundTissue\image\img (12).png,data\raw\WoundTissue\label\img (12).png,180,180,32400,14230,43.92,0,0.0,0,0.0,18170,56.08,0,0.0,0,0.0,background;necrotic,train
+img (2),img (2).png,data\raw\WoundTissue\image\img (2).png,data\raw\WoundTissue\label\img (2).png,259,259,67081,26299,39.2,16035,23.9,0,0.0,0,0.0,24747,36.89,0,0.0,background;granulation;maceration,train
+img (23),img (23).png,data\raw\WoundTissue\image\img (23).png,data\raw\WoundTissue\label\img (23).png,467,467,218089,111786,51.26,105549,48.4,754,0.35,0,0.0,0,0.0,0,0.0,background;granulation;slough,train
+img (28),img (28).png,data\raw\WoundTissue\image\img (28).png,data\raw\WoundTissue\label\img (28).png,268,268,71824,55116,76.74,16708,23.26,0,0.0,0,0.0,0,0.0,0,0.0,background;granulation,train
+img (31),img (31).png,data\raw\WoundTissue\image\img (31).png,data\raw\WoundTissue\label\img (31).png,163,163,26569,17110,64.4,9459,35.6,0,0.0,0,0.0,0,0.0,0,0.0,background;granulation,train
+img (5),img (5).png,data\raw\WoundTissue\image\img (5).png,data\raw\WoundTissue\label\img (5).png,135,135,18225,9683,53.13,0,0.0,5857,32.14,0,0.0,2685,14.73,0,0.0,background;slough;maceration,train
+img (6),img (6).png,data\raw\WoundTissue\image\img (6).png,data\raw\WoundTissue\label\img (6).png,289,289,83521,59072,70.73,24449,29.27,0,0.0,0,0.0,0,0.0,0,0.0,background;granulation,train
+img (8),img (8).png,data\raw\WoundTissue\image\img (8).png,data\raw\WoundTissue\label\img (8).png,131,131,17161,6003,34.98,0,0.0,11158,65.02,0,0.0,0,0.0,0,0.0,background;slough,train

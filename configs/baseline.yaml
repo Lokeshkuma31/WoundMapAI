@@ -5,12 +5,22 @@ experiment:
   illumination_norm: "none"
   seed: 42
 
+dataset:
+  num_classes: 7
+  class_names: ["background", "granulation", "slough", "necrotic", "maceration", "bone", "tendon"]
+  target_height: 512
+  target_width: 512
+  manifests:
+    train: "data/manifests/train.csv"
+    val: "data/manifests/val.csv"
+    test: "data/manifests/test.csv"
+
 model:
   architecture: "unet"
   encoder_name: "resnet34"
   encoder_weights: "imagenet"
   in_channels: 3
-  num_classes: 4
+  num_classes: 7
 
 training:
   batch_size: 8
@@ -28,5 +38,4 @@ training:
 
 checkpoints:
   save_dir: "outputs/checkpoints/baseline"
-  best_checkpoint: "best_baseline_unet.pt"
-
+  best_checkpoint: "best_baseline_unet_rgb.pt"
