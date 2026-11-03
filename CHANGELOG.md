@@ -4,7 +4,20 @@ All notable changes to the WoundMap AI research prototype will be documented in 
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [Unreleased] - Phase 6: Controlled Ablations
+## [Unreleased] - Phase 7: Streamlit Research Demo
+### Added
+- Developed complete interactive Streamlit research demo (`app/streamlit_app.py`) for multi-class wound tissue semantic segmentation.
+- Built dynamic checkpoint loader supporting Baseline U-Net and all 6 ablation checkpoints (`RUN-01` to `RUN-06`), automatically detecting base feature channels.
+- Added support for arbitrary image uploads (PNG, JPG, JPEG) and 4 benchmark clinical cases (`img (20).png`, `img (27).png`, `img (12).png`, `img (1).png`).
+- Implemented real-time interactive alpha-blend overlay slider ($\alpha \in [0.0, 1.0]$) and 7-class clinical tissue palette legend.
+- Implemented quantitative tissue surface area analysis with explicit dual denominators (Total FOV vs Wound Bed Area).
+- Implemented exportable CSV composition report download with metadata and disclaimer headers.
+- Embedded prominent non-clinical research disclaimer per Scientific Safeguard 9.
+- Added comprehensive unit test suite (`tests/test_demo.py`) covering PNG, JPG, grayscale, RGBA, non-square formats, alpha blending extremes, and percentage mathematics.
+- Verified live app execution with zero errors and zero exceptions via Streamlit `AppTest` framework.
+- Generated high-resolution dashboard preview figure (`reports/figures/streamlit_demo_preview.png`).
+
+## [0.7.0] - Phase 6: Controlled Ablations
 ### Added
 - Executed all 6 controlled ablation experiments per `configs/ablations.yaml`:
   * `RUN-01`: Standard sRGB Baseline
