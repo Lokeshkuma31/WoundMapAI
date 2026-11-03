@@ -22,6 +22,24 @@ STANDARD_4CLASS_PALETTE: Dict[int, Tuple[str, Tuple[int, int, int]]] = {
 }
 
 DEFAULT_PALETTE = WOUNDTISSUE_PALETTE
+NUM_CLASSES = len(WOUNDTISSUE_PALETTE)
+
+CLASS_NAMES: Dict[int, str] = {cid: info[0].capitalize() for cid, info in WOUNDTISSUE_PALETTE.items()}
+PALETTE_MAP: Dict[int, Tuple[int, int, int]] = {cid: info[1] for cid, info in WOUNDTISSUE_PALETTE.items()}
+
+HEX_COLORS: Dict[int, str] = {
+    0: "#0000FF",  # Background (Blue)
+    1: "#FF0000",  # Granulation (Red)
+    2: "#FFFF00",  # Slough (Yellow)
+    3: "#000000",  # Necrotic (Black)
+    4: "#FFFFFF",  # Maceration (White)
+    5: "#FFC87C",  # Bone (Cream / Peach)
+    6: "#00BFFF",  # Tendon (Sky Blue)
+}
+
+def mask_indices_to_rgb(mask: np.ndarray, palette: Dict[int, Tuple[str, Tuple[int, int, int]]] = DEFAULT_PALETTE) -> np.ndarray:
+    """Alias for mask_to_rgb."""
+    return mask_to_rgb(mask, palette=palette)
 
 def rgb_to_mask(rgb_arr: np.ndarray, palette: Dict[int, Tuple[str, Tuple[int, int, int]]] = DEFAULT_PALETTE) -> np.ndarray:
     """Map RGB segmentation mask image to discrete integer class indices [0..N-1].

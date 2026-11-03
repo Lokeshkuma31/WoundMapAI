@@ -3,7 +3,7 @@
 Implements deterministic resizing, mathematical color conversions (sRGB, HSV, CIELAB),
 Contrast-Limited Adaptive Histogram Equalization (CLAHE), and paired augmentations.
 """
-from typing import Tuple, Optional
+from typing import Tuple, Optional, Union
 import numpy as np
 from PIL import Image
 
@@ -151,19 +151,33 @@ def preprocess_image(
         raise ValueError(f"Unsupported illumination normalization: {illumination_norm}")
 
 def paired_resize(
-    image: Image.Image,
-    mask: Image.Image,
+    image: Union[Image.Image, np.ndarray],
+    mask: Optional[Union[Image.Image, np.ndarray]] = None,
     target_size: Tuple[int, int] = (512, 512)
-) -> Tuple[Image.Image, Image.Image]:
+) -> Tuple[Union[Image.Image, np.ndarray], Optional[Union[Image.Image, np.ndarray]]]:
     """Deterministic paired resize preserving discrete categorical mask integrity.
     
     Image uses BICUBIC resampling for smooth anatomical rendering.
     Categorical mask uses strict NEAREST resampling to prevent synthetic label creation.
+    If mask is None, resizes only the image.
+    Supports either PIL Images or NumPy arrays (returns same type as input).
     """
+    is_np_img = isinstance(image, np.ndarray)
+    pil_img = Image.fromarray(image) if is_np_img else image
+
     w, h = target_size
-    img_res = image.resize((w, h), Image.Resampling.BICUBIC)
-    mask_res = mask.resize((w, h), Image.Resampling.NEAREST)
-    return img_res, mask_res
+    img_res = pil_img.resize((w, h), Image.Resampling.BICUBIC)
+    res_img_out = np.array(img_res) if is_np_img else img_res
+
+    if mask is None:
+        return res_img_out, None
+
+    is_np_mask = isinstance(mask, np.ndarray)
+    pil_mask = Image.fromarray(mask) if is_np_mask else mask
+    mask_res = pil_mask.resize((w, h), Image.Resampling.NEAREST)
+    res_mask_out = np.array(mask_res) if is_np_mask else mask_res
+
+    return res_img_out, res_mask_out
 
 def paired_geometric_transform(
     image_arr: np.ndarray,
