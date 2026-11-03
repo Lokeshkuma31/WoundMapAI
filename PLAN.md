@@ -4,8 +4,8 @@
 
 | Phase | Description | Status | Evidence Link | Blocker | Human Approval |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **0 Bootstrap** | Tool audit, repo structure, rules, git init | **READY FOR GATE APPROVAL** | [Phase 0 Setup Evidence](#phase-0-bootstrap) | None | Pending User Sign-Off |
-| **1 Dataset Audit** | Inspect WoundTissue tree, pairs, class mapping | NOT STARTED | - | Pending Phase 0 | Gate 1 Required |
+| **0 Bootstrap** | Tool audit, repo structure, rules, git init | **ACCEPTED** | [Phase 0 PR #1](https://github.com/Lokeshkuma31/WoundMapAI/pull/1) | None | Approved by User |
+| **1 Dataset Audit** | Inspect WoundTissue tree, pairs, class mapping | **READY FOR GATE APPROVAL** | [Audit Manifest](data/manifests/manifest.csv) / [Contact Sheet](reports/figures/contact_sheet.png) | None | Pending User Sign-Off |
 | **2 Research Protocol** | Literature review, hypotheses, split policy | NOT STARTED | - | Pending Phase 1 | Gate 2 Required |
 | **3 Preprocessing & EDA**| Transforms, colour conversions, EDA overlays | NOT STARTED | - | Pending Phase 2 | Gate 3 Required |
 | **4 Baseline Model** | U-Net/FPN baseline, loss, training loop | NOT STARTED | - | Pending Phase 3 | Gate 4 Required |
@@ -70,3 +70,4 @@
 - **2026-11-03**: Validated local runtime: Windows 11, Python 3.14.2, PyTorch CPU, NVIDIA GeForce GTX 1650 (Driver 592.82, CUDA 13.1 capability). Unit testing pipeline verified via `python -m unittest discover tests` (6 tests executed, 1 skipped by contract).
 - **2026-11-03**: Created private remote repository `https://github.com/Lokeshkuma31/WoundMapAI`. Pushed `main` and feature branch `phase/00-bootstrap`.
 - **2026-11-03**: Confirmed execution model: Antigravity writes 100% runnable self-contained Colab notebooks with 1-click execution badges, checkpoints saved to Drive/local. User provides dataset archive/link for Phase 1.
+- **2026-11-03**: Phase 1 Audit completed on `akabircs/WoundTissue` (commit 557d2f4). 13 image-mask pairs verified with 100% 1-to-1 pairing and 0 unknown mask pixels across 766,243 total pixels. Disclosed that public release contains 13 sample images with arbitrary sequential filenames and no patient metadata. Manifest CSV, audit notebook, and visual contact sheet generated.

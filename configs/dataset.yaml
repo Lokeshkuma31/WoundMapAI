@@ -1,32 +1,46 @@
 # Dataset Configuration for WoundTissue
 dataset:
   name: "WoundTissue"
-  official_url: "" # Populated during Phase 1 audit
-  description: "Multi-class wound tissue segmentation dataset"
+  official_url: "https://github.com/akabircs/WoundTissue"
+  paper_citation: "Kabir et al., 2025 (arXiv:2502.10652)"
+  licence: "CC BY-NC-SA 4.0 (Non-Commercial Research Only)"
   raw_dir: "data/raw/WoundTissue"
   manifest_path: "data/manifests/manifest.csv"
+  total_paired_images: 13
   
-# Class definitions will be confirmed during Phase 1 audit from actual ground truth masks
+# Verified WoundTissue palette audited directly from ground-truth masks
 classes:
   - id: 0
     name: "background"
-    rgb_color: [0, 0, 0]
-    description: "Surrounding intact skin or background"
+    rgb_color: [0, 0, 255]
+    description: "Intact surrounding skin or background (Blue)"
   - id: 1
     name: "granulation"
     rgb_color: [255, 0, 0]
-    description: "Healthy pink/red tissue indicative of healing"
+    description: "Healthy pink/red healing tissue (Red)"
   - id: 2
     name: "slough"
     rgb_color: [255, 255, 0]
-    description: "Yellow/white moist devitalized tissue"
+    description: "Moist yellow/white devitalized tissue (Yellow)"
   - id: 3
     name: "necrotic"
     rgb_color: [0, 0, 0]
-    description: "Black/brown dry devitalized eschar"
+    description: "Dry black/brown devitalized eschar (Black)"
+  - id: 4
+    name: "maceration"
+    rgb_color: [255, 255, 255]
+    description: "Softened waterlogged tissue from exudate (White)"
+  - id: 5
+    name: "bone"
+    rgb_color: [255, 200, 124]
+    description: "Exposed osseous tissue (Cream)"
+  - id: 6
+    name: "tendon"
+    rgb_color: [0, 191, 255]
+    description: "Exposed glistening fibrinous cord (Sky Blue)"
 
 image_specs:
   target_height: 512
   target_width: 512
   input_channels: 3
-
+  mask_format: "RGBA_or_RGB"
