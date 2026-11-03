@@ -4,7 +4,17 @@ All notable changes to the WoundMap AI research prototype will be documented in 
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [Unreleased] - Phase 4: Baseline Model Implementation
+## [Unreleased] - Phase 5: Evaluation & Error Analysis
+### Added
+- Evaluated baseline U-Net checkpoint on strictly untouched test partition (`data/manifests/test.csv`, 131,072 pixels).
+- Implemented comprehensive evaluation metrics engine (`src/woundmap/metrics.py`) computing confusion matrices, per-class Dice, IoU, Precision, Recall, Support, and Dual Macro Averages with explicit absent-class handling.
+- Implemented inference latency benchmark measuring runtime and throughput on target resolution (42.61 ms, 23.5 FPS on CPU).
+- Exported empirical test results to `reports/test_metrics_summary.json` and `reports/test_metrics_per_class.csv`, and updated `reports/results.md`.
+- Generated normalized pixel confusion matrix heatmap (`reports/figures/test_confusion_matrix.png`), qualitative test panels (`reports/figures/test_prediction_panels.png`), and boundary error analysis maps (`reports/figures/test_boundary_error_analysis.png`).
+- Authored test evaluation walkthrough notebook (`notebooks/04_evaluation_error_analysis.ipynb`).
+- Identified low-intensity necrotic tissue confusion with shadows as primary baseline failure mode, motivating Phase 6 ablations. Expanded test suite to 19/19 passing tests.
+
+## [0.5.0] - Phase 4: Baseline Model Implementation
 ### Added
 - Implemented modular 7-class convolutional U-Net (`src/woundmap/models.py`) with configurable base features, contracting path, and expanding skip-connection decoder.
 - Implemented composite loss function ($0.5 \times \text{Soft Dice} + 0.5 \times \text{Cross-Entropy}$) and complete training engine (`src/woundmap/train.py`) with metric tracking, early stopping, and validation checkpointing.

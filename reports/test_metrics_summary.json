@@ -1,0 +1,148 @@
+{
+  "confusion_matrix": [
+    [
+      52821,
+      0,
+      11,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      1306,
+      20182,
+      21255,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      134,
+      19,
+      1518,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      19989,
+      7039,
+      2287,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      570,
+      13,
+      3928,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  ],
+  "per_class": [
+    {
+      "class_id": 0,
+      "support": 52832,
+      "pred_count": 74820,
+      "dice": 0.8275781029674427,
+      "iou": 0.7058705616656199,
+      "precision": 0.7059743384121893,
+      "recall": 0.9997917928528165
+    },
+    {
+      "class_id": 1,
+      "support": 42743,
+      "pred_count": 27253,
+      "dice": 0.5766615235156295,
+      "iou": 0.40514714738828445,
+      "precision": 0.7405423256155286,
+      "recall": 0.4721708817818122
+    },
+    {
+      "class_id": 2,
+      "support": 1671,
+      "pred_count": 28999,
+      "dice": 0.09898924029996739,
+      "iou": 0.052071899012074645,
+      "precision": 0.052346632642504914,
+      "recall": 0.9084380610412927
+    },
+    {
+      "class_id": 3,
+      "support": 29315,
+      "pred_count": 0,
+      "dice": 0.0,
+      "iou": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "class_id": 4,
+      "support": 4511,
+      "pred_count": 0,
+      "dice": 0.0,
+      "iou": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "class_id": 5,
+      "support": 0,
+      "pred_count": 0,
+      "dice": 1.0,
+      "iou": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "class_id": 6,
+      "support": 0,
+      "pred_count": 0,
+      "dice": 1.0,
+      "iou": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    }
+  ],
+  "macro_dice_present": 0.3006457733566079,
+  "macro_dice_all": 0.5004612666832914,
+  "macro_iou_present": 0.23261792161319578,
+  "macro_iou_all": 0.4518699440094256,
+  "macro_precision": 0.49983761381003183,
+  "macro_recall": 0.6257715336679889,
+  "total_pixels_evaluated": 131072,
+  "latency_benchmark": {
+    "mean_ms": 42.609061998082325,
+    "std_ms": 6.7794760361607995,
+    "min_ms": 34.56999995978549,
+    "max_ms": 82.65679999021813,
+    "fps": 23.469185969055275
+  },
+  "hardware": "Local CPU (Intel/AMD x86_64, Windows 11)",
+  "input_resolution": "256x256"
+}

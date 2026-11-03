@@ -1,0 +1,8 @@
+class_id,class_name,support,pred_count,dice,iou,precision,recall
+0,background,52832,74820,0.8276,0.7059,0.706,0.9998
+1,granulation,42743,27253,0.5767,0.4051,0.7405,0.4722
+2,slough,1671,28999,0.099,0.0521,0.0523,0.9084
+3,necrotic,29315,0,0.0,0.0,0.0,0.0
+4,maceration,4511,0,0.0,0.0,0.0,0.0
+5,bone,0,0,1.0,1.0,1.0,1.0
+6,tendon,0,0,1.0,1.0,1.0,1.0
