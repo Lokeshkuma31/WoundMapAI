@@ -4,7 +4,17 @@ All notable changes to the WoundMap AI research prototype will be documented in 
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [Unreleased] - Phase 3: Preprocessing & Exploratory Data Analysis
+## [Unreleased] - Phase 4: Baseline Model Implementation
+### Added
+- Implemented modular 7-class convolutional U-Net (`src/woundmap/models.py`) with configurable base features, contracting path, and expanding skip-connection decoder.
+- Implemented composite loss function ($0.5 \times \text{Soft Dice} + 0.5 \times \text{Cross-Entropy}$) and complete training engine (`src/woundmap/train.py`) with metric tracking, early stopping, and validation checkpointing.
+- Implemented Python 3.14 PyTorch optimizer compatibility shim (`src/woundmap/compat.py`) to resolve pre-release dynamo circular imports.
+- Built mandatory automated test suite (`tests/test_model_output.py`) covering output tensor shapes, composite gradient flows, and one-batch overfit convergence (>50% loss drop over 25 steps). Expanded test suite to 16/16 passing tests.
+- Executed local baseline CPU smoke training run (10 epochs, Val Macro Dice peaked at 0.7719), saving checkpoint `outputs/checkpoints/baseline/best_baseline_unet_rgb.pt` (10.1MB, git-ignored) and `training_history.json`.
+- Generated visual training curves (`reports/figures/baseline_training_curves.png`) and validation prediction overlay panels (`reports/figures/baseline_prediction_overlays.png`).
+- Authored Colab-ready baseline training notebook (`notebooks/02_baseline_training.ipynb`) with 1-click execution badge.
+
+## [0.4.0] - Phase 3: Preprocessing & Exploratory Data Analysis
 ### Added
 - Implemented pure NumPy vectorized CLAHE (`apply_clahe_channel`) with zero external C++ dependencies for localized contrast normalisation on luminance channels ($L^*$ and $V$).
 - Implemented mathematical color conversions (`convert_color_space`, `preprocess_image`) supporting sRGB, HSV, and CIELAB normalized into $[0.0, 1.0]$ float32.

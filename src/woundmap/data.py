@@ -84,11 +84,9 @@ class WoundDataset(Dataset):
             illumination_norm=self.illumination_norm
         )
         
-        # Convert to PyTorch tensors
-        # Image: (H, W, 3) -> (3, H, W) float32
-        img_tensor = torch.from_numpy(processed_img).permute(2, 0, 1).contiguous()
-        # Mask: (H, W) int64
-        mask_tensor = torch.from_numpy(mask_idx_arr).long()
+        # Convert to PyTorch tensors with contiguous memory guarantees
+        img_tensor = torch.from_numpy(np.ascontiguousarray(processed_img)).permute(2, 0, 1).contiguous()
+        mask_tensor = torch.from_numpy(np.ascontiguousarray(mask_idx_arr)).long()
         
         return {
             "image": img_tensor,
