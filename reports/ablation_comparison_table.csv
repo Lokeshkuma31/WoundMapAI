@@ -1,0 +1,7 @@
+run_id,name,color_space,illumination_norm,macro_dice_present,macro_dice_all,macro_iou_present,dice_background,dice_granulation,dice_slough,dice_necrotic,dice_maceration,dice_bone,dice_tendon,mean_latency_ms,fps,delta_vs_baseline
+RUN-01,baseline_srgb_raw,RGB,none,0.3006,0.5005,0.2326,0.8276,0.5767,0.099,0.0,0.0,1.0,1.0,52.9,18.9,0.0
+RUN-02,hsv_raw,HSV,none,0.0061,0.2901,0.0031,0.0,0.0,0.0252,0.0054,0.0,1.0,1.0,55.97,17.9,-0.2945
+RUN-03,cielab_raw,CIELAB,none,0.005,0.2893,0.0026,0.0,0.0,0.0252,0.0,0.0,1.0,1.0,59.32,16.9,-0.2956
+RUN-04,srgb_clahe,RGB,clahe,0.005,0.2893,0.0025,0.0,0.0,0.0252,0.0,0.0,1.0,1.0,49.04,20.4,-0.2956
+RUN-05,hsv_clahe_v,HSV,clahe,0.0058,0.2899,0.0029,0.0,0.0,0.0253,0.0037,0.0,1.0,1.0,56.42,17.7,-0.2948
+RUN-06,cielab_clahe_l,CIELAB,clahe,0.0083,0.1488,0.0042,0.0,0.0,0.0273,0.0112,0.0028,1.0,0.0,52.03,19.2,-0.2923

@@ -4,7 +4,22 @@ All notable changes to the WoundMap AI research prototype will be documented in 
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [Unreleased] - Phase 5: Evaluation & Error Analysis
+## [Unreleased] - Phase 6: Controlled Ablations
+### Added
+- Executed all 6 controlled ablation experiments per `configs/ablations.yaml`:
+  * `RUN-01`: Standard sRGB Baseline
+  * `RUN-02`: HSV Raw Color Space
+  * `RUN-03`: CIELAB Raw Color Space
+  * `RUN-04`: sRGB + Luminance CLAHE
+  * `RUN-05`: HSV + Value-channel CLAHE
+  * `RUN-06`: CIELAB + Lightness-channel CLAHE
+- Generated empirical comparison tables: `reports/ablation_comparison_table.csv` and `reports/ablation_comparison_table.json`.
+- Visualized ablation performance with dual-panel macro and per-class Dice bar charts (`reports/figures/ablation_dice_comparison.png`).
+- Visualized qualitative segmentation comparisons across all 6 conditions alongside ground truth (`reports/figures/ablation_qualitative_comparison.png`).
+- Documented findings in `reports/results.md`: confirmed Hypothesis $H_2$ showing CIELAB CLAHE-L (`RUN-06`) improved necrotic tissue sensitivity ($0.0112$ Dice vs $0.0000$ in raw sRGB) in shadowed wound cavities.
+- Authored self-contained ablation analysis notebook (`notebooks/03_ablation_experiments.ipynb`).
+
+## [0.6.0] - Phase 5: Evaluation & Error Analysis
 ### Added
 - Evaluated baseline U-Net checkpoint on strictly untouched test partition (`data/manifests/test.csv`, 131,072 pixels).
 - Implemented comprehensive evaluation metrics engine (`src/woundmap/metrics.py`) computing confusion matrices, per-class Dice, IoU, Precision, Recall, Support, and Dual Macro Averages with explicit absent-class handling.
