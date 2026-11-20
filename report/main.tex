@@ -14,6 +14,8 @@
 \usepackage{microtype}
 \usepackage{cite}
 
+\graphicspath{{figures/}}
+
 \hypersetup{
     colorlinks=true,
     linkcolor=blue!70!black,
@@ -358,6 +360,20 @@ The pipeline is integrated into an interactive web demonstration built in Stream
     \item \textbf{Audit Logging:} One-click export of a clinical research CSV report containing model parameters, execution timestamp, and tissue area metrics.
 \end{enumerate}
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{fig_palette_table.png}
+    \caption{Tissue class palette, color swatches, and quantitative surface-area summary with stated denominators as rendered in the application.}
+    \label{fig:palette_summary}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{fig_triplet.png}
+    \caption{Synchronized inspection viewport triplet from the deployed application: (1) Resized input photograph ($256 \times 256$), (2) 7-class predicted segmentation mask, and (3) interactive alpha-blend overlay ($\alpha = 0.45$).}
+    \label{fig:triplet}
+\end{figure}
+
 % ==========================================
 % SECTION 8: RESULTS AND DISCUSSION
 % ==========================================
@@ -422,6 +438,20 @@ Two vital biophysical insights emerge from these results:
     \item \textbf{Slough Over-Segmentation:} In standard sRGB, pale peri-wound skin and specular glints are frequently misclassified as fibrinous yellow slough (yielding high recall $0.9084$ but low precision $0.0523$), demonstrating the need for polarizers or automated glare-masking.
 \end{enumerate}
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.88\textwidth]{test_prediction_panels.png}
+    \caption{Qualitative test-set evaluation panels on held-out images (\texttt{img (20)} and \texttt{img (27)}): Column (a) Original photograph, Column (b) Audited ground-truth mask, Column (c) Baseline U-Net prediction, and Column (d) Tissue overlay.}
+    \label{fig:test_panels}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.85\textwidth]{ablation_dice_comparison.png}
+    \caption{Quantitative comparison of Present Macro Dice and per-class Dice scores across the six controlled ablation conditions (sRGB, HSV, CIELAB with and without CLAHE).}
+    \label{fig:ablation_comparison}
+\end{figure}
+
 % ==========================================
 % SECTION 9: LIMITATIONS
 % ==========================================
@@ -475,3 +505,4 @@ S.~L.~Jacques,
 \end{thebibliography}
 
 \end{document}
+
