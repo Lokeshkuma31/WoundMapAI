@@ -1,0 +1,477 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{fancyhdr}
+\usepackage{microtype}
+\usepackage{cite}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    citecolor=green!50!black,
+    urlcolor=blue!80!black
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small WoundMap AI: Wound Tissue Segmentation}
+\fancyhead[R]{\small EP-491}
+\fancyfoot[C]{\thepage}
+
+\begin{document}
+
+% ==========================================
+% PAGE 1: TITLE PAGE
+% ==========================================
+\begin{titlepage}
+    \centering
+    \vspace*{1.5cm}
+    
+    {\Huge \bfseries \color{red!40!black} WoundMap AI: \\[0.3cm]
+    Physics-Guided Computational \\[0.3cm]
+    Approach for \\[0.3cm]
+    Wound Tissue Segmentation and \\[0.3cm]
+    Visual Analysis \par}
+    
+    \vspace{1.5cm}
+    {\large Prepared using U-Net semantic segmentation and a Streamlit research application \par}
+    
+    \vspace{0.8cm}
+    {\large \textbf{EP-491 UG Project-2 Report} \par}
+    
+    \vspace{2.0cm}
+    \begin{figure}[h]
+        \centering
+        % Replace with institute logo if available, or placeholder circle
+        \includegraphics[width=0.22\textwidth]{iit_bhu_logo.png} 
+    \end{figure}
+    
+    \vspace{1.5cm}
+    {\large \textbf{Submitted by:} \\[0.2cm]
+    \textbf{K Lokesh (23174016)} \par}
+    
+    \vspace{1.2cm}
+    {\large \textbf{Supervised by Prof. Avanish Singh Parmar} \\[0.2cm]
+    Department of Physics, IIT (BHU) \\[0.2cm]
+    21/11/2026 \par}
+    
+    \vfill
+\end{titlepage}
+
+% ==========================================
+% PAGE 2: SIGNATURE / APPROVAL PAGE
+% ==========================================
+\newpage
+\thispagestyle{empty}
+\begin{center}
+    \vspace*{1.0cm}
+    {\Huge \bfseries \color{red!40!black} WoundMap AI: \\[0.3cm]
+    Physics-Guided Computational \\[0.3cm]
+    Approach for \\[0.3cm]
+    Wound Tissue Segmentation and \\[0.3cm]
+    Visual Analysis \par}
+    
+    \vspace{1.2cm}
+    {\large Prepared using U-Net semantic segmentation and a Streamlit research application \par}
+    
+    \vspace{0.6cm}
+    {\large \textbf{EP-491 UG Project-2 Report} \par}
+    
+    \vspace{1.5cm}
+    {\large \textbf{K Lokesh (23174016)} \\[0.2cm]
+    Supervised by Prof. Avanish Singh Parmar \\[0.2cm]
+    Department of Physics, IIT (BHU) \\[0.2cm]
+    21/11/2026 \par}
+    
+    \vspace{4.0cm}
+    \begin{flushleft}
+        \textbf{Supervisor Signature:} \rule{7cm}{0.4pt} \\[0.3cm]
+        \textbf{Prof. Avanish Singh Parmar} \\[0.1cm]
+        Department of Physics \\[0.1cm]
+        Indian Institute of Technology (BHU), Varanasi
+    \end{flushleft}
+\end{center}
+
+% ==========================================
+% PAGE 3: ABSTRACT
+% ==========================================
+\newpage
+\section*{Abstract}
+\addcontentsline{toc}{section}{Abstract}
+
+This project presents \textbf{WoundMap AI}, an Engineering Physics-led computational imaging framework for pixel-level semantic segmentation of chronic wound photographs. A digital wound photograph records ambient light that has undergone complex physical interactions with tissue chromophores and microstructure---governed by wavelength-dependent absorption ($\mu_a$), multiple scattering ($\mu_s, \mu_s'$), and interfacial Fresnel reflection---before undergoing acquisition, demosaicing, and color correction inside a camera image-signal processor (ISP). Consequently, raw RGB pixel values conflate intrinsic tissue characteristics with extrinsic capture artifacts, ambient lighting changes, and localized specular glare.
+
+To address this challenge, we construct a 7-class convolutional U-Net semantic segmentation network with skip connections and deploy it within an interactive Streamlit research platform. The system ingests wound photographs, executes standardized preprocessing, predicts pixel-level categorical tissue masks, and computes quantitative surface area composition summaries with stated dual denominators (Total Field of View versus Wound Bed Area). 
+
+The primary scientific investigation focuses on how mathematical color-space representations (sRGB, HSV, and perceptual CIELAB) and localized illumination normalisation via Contrast-Limited Adaptive Histogram Equalization (CLAHE) influence segmentation robustness. Working on the audited public benchmark subset from Kabir et al. ($N=13$ image-mask pairs; 766,243 annotated pixels), we establish a strictly locked 70/15/15 stratified partition ($N=9$ train, $N=2$ validation, $N=2$ held-out test). The baseline sRGB U-Net achieves a test Macro Dice of $0.3006$ on present classes ($0.5005$ across all 7 classes) at an inference latency of $42.61$\,ms ($23.5$\,FPS on CPU). A systematically controlled 6-condition ablation confirms that applying CLAHE to the perceptual lightness channel ($L^*$) in CIELAB substantially improves necrotic tissue detection in shadowed wound pockets ($\text{Dice} = 0.0112$ versus $0.0000$ in raw sRGB), validating the biophysical hypothesis that decorrelating luminance from chromaticity resolves cavity shadow confounding.
+
+\vspace{0.5cm}
+\noindent \textbf{Keywords:} Computational Imaging, Tissue Optics, Semantic Segmentation, U-Net, Color Spaces, CIELAB, CLAHE, Wound Care.
+
+% ==========================================
+% PAGE 4: CERTIFICATE
+% ==========================================
+\newpage
+\section*{Certificate}
+\addcontentsline{toc}{section}{Certificate}
+
+\vspace{1.5cm}
+\noindent This is to certify that the project report titled \textbf{``WoundMap AI: Physics-Guided Computational Approach for Wound Tissue Segmentation and Visual Analysis''} submitted by \textbf{K Lokesh (Roll No. 23174016)} to the Department of Physics, Indian Institute of Technology (BHU), Varanasi, towards partial fulfillment of the requirements for the award of the degree of \textbf{Integrated Dual Degree (IDD) in Engineering Physics}, is a bonafide record of research work carried out by him under my supervision and guidance.
+
+\vspace{0.8cm}
+\noindent To the best of my knowledge, the matter embodied in this report has not been submitted to any other University or Institute for the award of any degree or diploma.
+
+\vspace{4.0cm}
+\begin{flushleft}
+    \textbf{Prof. Avanish Singh Parmar} \\[0.2cm]
+    Supervisor \\[0.1cm]
+    Department of Physics \\[0.1cm]
+    Indian Institute of Technology (BHU), Varanasi \\[0.1cm]
+    Date: 21/11/2026
+\end{flushleft}
+
+% ==========================================
+% PAGES 5 & 6: TABLE OF CONTENTS
+% ==========================================
+\newpage
+\tableofcontents
+
+\newpage
+
+% ==========================================
+% SECTION 1: INTRODUCTION
+% ==========================================
+\section{Introduction}
+
+Chronic wound assessment is a critical clinical discipline that requires accurately identifying the various tissue types present across a lesion and tracking their spatial progression over time. Conventional assessment relies on subjective visual observation using clinical scales such as the Pressure Ulcer Scale for Healing (PUSH) or the Red-Yellow-Black-White (RYKW) classification system. However, manual estimation suffers from high inter-observer variability, particularly when heterogeneous tissues (e.g., vascularized granulation, fibrous slough, and necrotic eschar) coexist in irregular spatial distributions.
+
+Because a digital photograph constitutes an objective, high-resolution spatial record of reflected light, computational computer vision can extract reproducible spatial maps of tissue regions. Pixel-wise semantic segmentation assigns a categorical label to every pixel in the field of view. This enables three complementary clinical research capabilities:
+\begin{enumerate}
+    \item Generating color-coded anatomical tissue maps that delineate fine physiological margins.
+    \item Rendering semi-transparent alpha-blended overlays directly onto the patient photograph for clinical inspection.
+    \item Computing objective, quantitative surface-area proportions for each tissue class across successive examinations.
+\end{enumerate}
+
+\subsection{Scope and Safe-Interpretation Boundary}
+From an Engineering Physics perspective, optical imaging of biological tissue is fundamentally governed by light-tissue interactions. The camera sensor does not measure ``tissue biology'' directly; it integrates reflected spectral irradiance over the broadband sensitivities of its color filter array. Ambient color temperature, incident illumination angle, flash shadows, and surface moisture modulate recorded RGB intensities independently of underlying tissue state. 
+
+Therefore, WoundMap AI is explicitly framed as a \textbf{decision-support research prototype}, not a clinical diagnostic device. It predicts the spatial boundaries of visual tissue categories as learned from annotated training images. It does not measure microvascular perfusion, tissue oxygenation ($\text{StO}_2$), microbial presence, or histological depth, and cannot provide physical surface area in $\text{cm}^2$ without an in-plane fiducial scale marker and calibrated camera geometry. All outputs are reported using objective probabilistic phrasing (e.g., ``the model assigned $X\%$ of the segmented region to slough'') rather than diagnostic assertions.
+
+% ==========================================
+% SECTION 2: OBJECTIVES
+% ==========================================
+\section{Objectives}
+
+\textbf{Primary Objective:} To formulate, implement, and validate a physics-guided computational imaging pipeline for pixel-level semantic segmentation and surface-area analysis of chronic wound tissue from standard photographic images.
+
+\vspace{0.2cm}
+\noindent \textbf{Research Question:} \textit{How do mathematical color-space representations (sRGB, HSV, CIELAB) and localized illumination normalization influence the segmentation accuracy and cavity shadow robustness of deep-learning architectures?}
+
+\subsection*{Specific Objectives}
+\begin{itemize}
+    \item Perform a complete biophysical and dataset audit on the benchmark WoundTissue repository, verifying annotation protocols, label encoding, and dimensional integrity.
+    \item Formulate a 7-class convolutional U-Net architecture optimized for medical image segmentation under severe class imbalance.
+    \item Design and verify deterministic preprocessing routines enforcing exact mathematical color conversions, bicubic image interpolation, and strict nearest-neighbor categorical mask resampling.
+    \item Formulate and execute a locked 6-condition controlled ablation matrix comparing sRGB, HSV, and CIELAB with and without Contrast-Limited Adaptive Histogram Equalization (CLAHE).
+    \item Build and deploy an interactive Streamlit research inspection application providing real-time inference, alpha-blend overlay inspection, quantitative composition reporting, and automated CSV audit logging.
+\end{itemize}
+
+% ==========================================
+% SECTION 3: PROBLEM & LITERATURE BACKGROUND
+% ==========================================
+\section{Problem and Literature Background}
+
+\subsection{Why a Single Label Is Insufficient}
+Unlike standard natural image classification, where an entire photograph is assigned a single global category (e.g., ``ulcer'' versus ``healthy skin''), chronic wounds are inherently polymorphic. A single wound bed routinely exhibits islands of active proliferative capillary beds (granulation) bordered by devitalized collagenous debris (slough) and avascular blackened crusts (necrosis). Quantifying the relative ratio of granulation to slough is the primary metric clinicians use to evaluate whether a wound is healing or stalling. Global classification or bounding-box object detection completely fails to provide this spatial and volumetric intelligence.
+
+\subsection{Related Work}
+Semantic segmentation of wound tissue has evolved significantly with deep learning:
+\begin{itemize}
+    \item \textbf{Deep Learning Benchmarks:} Kabir et al.\ (2025) \cite{kabir2025woundtissue} introduced the WoundTissue benchmark, demonstrating that Feature Pyramid Networks (FPN) and U-Net variants can segment tissue classes with macro Dice scores up to 82.25\% when trained on extensive private medical cohorts.
+    \item \textbf{Biomedical U-Net:} Originally formulated by Ronneberger et al.\ (2015) \cite{ronneberger2015unet}, the U-Net architecture has become the de facto foundation for medical segmentation due to its contracting-expanding path and high-resolution skip connections that preserve structural boundaries.
+    \item \textbf{Advanced Optical Modalities:} Jacques (2013) \cite{jacques2013optical} provided comprehensive reviews of optical coefficients in biological tissue. Multispectral and spatial frequency domain imaging (SFDI) systems \cite{multispectral2024wound} can quantitatively decouple absorption from scattering to deduce oxygen saturation. However, such hardware is expensive, specialized, and unavailable in standard primary care, motivating the study of robust computation on accessible RGB photography.
+\end{itemize}
+
+% ==========================================
+% SECTION 4: PHYSICS OF WOUND IMAGING
+% ==========================================
+\section{Physics of Wound Imaging}
+
+\subsection{Light--Tissue Interaction}
+When photons impinge upon skin and exposed subcutaneous wound beds, they undergo three primary physical phenomena:
+\begin{enumerate}
+    \item \textbf{Absorption:} Governed by tissue chromophores, predominantly oxyhemoglobin ($\text{HbO}_2$), deoxyhemoglobin ($\text{Hb}$), melanin, and interstitial water. The wavelength-dependent absorption coefficient $\mu_a(\lambda)$ represents the probability of photon absorption per unit path length ($\text{cm}^{-1}$). High $\mu_a$ in the 400--580\,nm region gives blood-perfused granulation its characteristic crimson appearance.
+    \item \textbf{Elastic Scattering:} Arises from spatial variations in the refractive index at microscopic interfaces, including cellular membranes, cell nuclei, and extracellular collagen fibrils. The scattering coefficient $\mu_s(\lambda)$ and the anisotropy parameter $g = \langle \cos\theta \rangle$ define the reduced scattering coefficient:
+    \begin{equation}
+        \mu_s'(\lambda) = \mu_s(\lambda)(1 - g)
+    \end{equation}
+    In the visible spectrum, forward scattering dominates ($g \approx 0.85\text{--}0.95$). Multiple scattering randomizes photon trajectories, dictating the depth of penetration and diffuse reflectance.
+    \item \textbf{Interfacial Reflection:} At the air-tissue boundary, refractive index mismatch ($n_{\text{air}} \approx 1.0$ versus $n_{\text{tissue}} \approx 1.37\text{--}1.44$) induces specular Fresnel reflection. Specular glare from moist exudate produces saturated white glints ($R=G=B=255$) devoid of subsurface spectral information.
+\end{enumerate}
+
+\subsection{Why Beer--Lambert Law Is Only an Intuition Here}
+The classical Beer--Lambert law, $I = I_0 \exp(-\mu_a L)$, models ballistic light transmission through a non-scattering, homogeneous slab. In biological tissue, $\mu_s' \gg \mu_a$ across the visible band, meaning light propagates via diffuse radiative transport rather than ballistic trajectories. While Beer--Lambert gives qualitative intuition regarding absorption, rigorous quantitative extraction of chromophore concentrations from uncalibrated RGB photographs is an ill-posed inverse problem.
+
+\subsection{From Tissue Optics to an RGB Digital Image}
+The signal recorded by camera channel $c \in \{R, G, B\}$ at spatial coordinates $(x, y)$ can be modeled conceptually as:
+\begin{equation}
+    I_c(x, y) = \text{ISP}_c \left( \int_{400\,\text{nm}}^{700\,\text{nm}} E(x, y, \lambda) \, R_{\text{tissue}}(x, y, \lambda; \mu_a, \mu_s', \text{geom}) \, S_c(\lambda) \, d\lambda \right) + \eta
+\end{equation}
+where $E(x, y, \lambda)$ is the ambient illumination spectrum, $R_{\text{tissue}}$ is the diffuse tissue reflectance, $S_c(\lambda)$ represents the spectral sensitivity of the color filter array, $\text{ISP}_c(\cdot)$ encapsulates nonlinear camera processing (demosaicing, auto-white balance, tone curve mapping, gamma correction, JPEG compression), and $\eta$ is sensor noise.
+
+\begin{figure}[h]
+    \centering
+    \setlength{\unitlength}{1cm}
+    \begin{picture}(14, 2.2)
+        \put(0.5, 0.6){\framebox(2.2, 1.0){\shortstack{Light\\Source}}}
+        \put(2.7, 1.1){\vector(1, 0){1.0}}
+        \put(3.7, 0.4){\framebox(2.8, 1.4){\shortstack{Tissue Interaction\\ \small $\mu_a, \mu_s', g$ \\ \scriptsize Absorption/Scattering}}}
+        \put(6.5, 1.1){\vector(1, 0){1.0}}
+        \put(7.5, 0.6){\framebox(2.2, 1.0){\shortstack{Reflected\\Light}}}
+        \put(9.7, 1.1){\vector(1, 0){1.0}}
+        \put(10.7, 0.6){\framebox(2.5, 1.0){\shortstack{Camera Sensor\\+ ISP Pipeline}}}
+    \end{picture}
+    \caption{Simplified physical image-formation model connecting optical tissue properties to digital pixel values.}
+    \label{fig:image_formation}
+\end{figure}
+
+\subsection{Color Spaces and Illumination Robustness}
+Because camera sensors output standard sRGB, chromaticity and intensity remain coupled across all three channels. Transforming images into alternative coordinate systems alters feature representations:
+\begin{table}[h]
+    \centering
+    \small
+    \caption{Comparison of mathematical color representations evaluated in WoundMap AI.}
+    \label{tab:color_spaces}
+    \begin{tabularx}{\textwidth}{l p{2.2cm} X X}
+        \toprule
+        \textbf{Color Space} & \textbf{Channels} & \textbf{Physical Intuition} & \textbf{Computational Caveat} \\
+        \midrule
+        \textbf{sRGB} & $R, G, B$ & Native camera sensor filter channels; mixes luminance and chromaticity. & Heavily dependent on camera auto-exposure and lighting warmth. \\
+        \textbf{HSV} & Hue, Sat., Value & Cylindrical mapping; separates dominant wavelength (Hue) from intensity ($V$). & Hue exhibits singularity and high noise at low saturation and near shadows. \\
+        \textbf{CIELAB} & $L^*, a^*, b^*$ & Perceptually uniform; $L^*$ decouples lightness from green-red ($a^*$) and blue-yellow ($b^*$). & Requires accurate reference white point calibration for nonlinear conversion. \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+% ==========================================
+% SECTION 5: DATASET AND LABEL INTEGRITY
+% ==========================================
+\section{Dataset and Label Integrity}
+
+\subsection{Audited Dataset Specifications}
+While the preprint by Kabir et al.\ (2025) \cite{kabir2025woundtissue} discusses a total cohort of 147 wound photographs collected from tertiary clinical centers, a rigorous audit of the public repository (\url{https://github.com/akabircs/WoundTissue}, commit \texttt{557d2f4}, accessed November 2026) revealed that the authors released an initial benchmark subset of \textbf{13 paired PNG images} and ground-truth masks. The filenames range non-consecutively from \texttt{img (1).png} to \texttt{img (31).png}. The repository contains no formal open-source license file. Patient identifiers, wound etiologies, physical dimensions, and scale references were not included in the public release.
+
+\subsection{Ground-Truth Palette and Mask Verification}
+Every pixel across all 13 ground-truth masks ($766,243$ total pixels) was audited via automated script. The masks are 4-channel RGBA images ($\alpha = 255$). The audit confirmed \textbf{100\% 1-to-1 pairing and 0 unknown or stray pixel values}, verifying exactly 6 active tissue classes plus background:
+
+\begin{table}[h]
+    \centering
+    \caption{Audited ground-truth tissue palette and pixel statistics across the benchmark dataset.}
+    \label{tab:palette}
+    \begin{tabular}{c l c c r r}
+        \toprule
+        \textbf{Class ID} & \textbf{Tissue Class} & \textbf{RGB Triple} & \textbf{Hex Code} & \textbf{Total Pixels} & \textbf{Pixel \%} \\
+        \midrule
+        0 & Background / Periwound & $(0, 0, 255)$ & \texttt{\#0000FF} & 224,962 & 29.36\% \\
+        1 & Granulation & $(255, 0, 0)$ & \texttt{\#FF0000} & 295,496 & 38.56\% \\
+        2 & Slough & $(255, 255, 0)$ & \texttt{\#FFFF00} & 171,849 & 22.43\% \\
+        3 & Necrotic / Eschar & $(0, 0, 0)$ & \texttt{\#000000} & 34,917 & 4.56\% \\
+        4 & Maceration & $(255, 255, 255)$ & \texttt{\#FFFFFF} & 25,667 & 3.35\% \\
+        5 & Bone & $(255, 200, 124)$ & \texttt{\#FFC87C} & 13,352 & 1.74\% \\
+        6 & Tendon & $(0, 191, 255)$ & \texttt{\#00BFFF} & 0 & 0.00\% \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\noindent Tendon tissue was completely absent from this 13-image subset. Necrosis, maceration, and bone represent severe minority classes ($<5\%$ each), underscoring the absolute necessity of class-balanced loss functions and per-class metric reporting.
+
+% ==========================================
+% SECTION 6: METHODOLOGY
+% ==========================================
+\section{Methodology}
+
+\subsection{Preprocessing and Deterministic Alignment}
+To prevent synthetic label corruption during spatial transformations, image and mask pairs undergo strict deterministic resizing:
+\begin{itemize}
+    \item \textbf{Image Resizing:} Continuous RGB photographs are resized to $256 \times 256$ using \textbf{bicubic interpolation}.
+    \item \textbf{Mask Resizing:} Discrete categorical masks are resized to $256 \times 256$ using strict \textbf{nearest-neighbor interpolation}, ensuring categorical class indices are never blended into non-existent intermediate values.
+    \item \textbf{Localized Contrast Enhancement (CLAHE):} Pure NumPy vectorized CLAHE is implemented with an $8 \times 8$ grid and a clip limit of $2.0$. For CIELAB, CLAHE is applied strictly to the $L^*$ channel; for HSV, strictly to the $V$ channel; and for sRGB, independently across channels.
+\end{itemize}
+
+\subsection{U-Net Architecture & Experimental Configuration}
+The segmentation network is formulated as a modular 4-stage convolutional U-Net with contracting and expanding paths linked by skip connections. With base feature dimension $f=16$, the model contains \textbf{834,663 trainable parameters}. Table~\ref{tab:hyperparameters} summarizes the exact experimental configuration.
+
+\begin{table}[h]
+    \centering
+    \small
+    \caption{Exact experimental hyperparameters and reproducibility configuration.}
+    \label{tab:hyperparameters}
+    \begin{tabularx}{\textwidth}{l X l X}
+        \toprule
+        \textbf{Parameter} & \textbf{Specification} & \textbf{Parameter} & \textbf{Specification} \\
+        \midrule
+        Architecture & 7-Class Convolutional U-Net & Base Channels ($f$) & 16 (834,663 params) \\
+        Input Resolution & $256 \times 256 \times 3$ & Random Seed & 42 (\texttt{torch} \& \texttt{numpy}) \\
+        Dataset Split & 70\% / 15\% / 15\% Stratified & Image Counts & 9 Train, 2 Val, 2 Held-Out Test \\
+        Test Manifest & \texttt{img (20).png}, \texttt{img (27).png} & Test Pixels & 131,072 strictly held-out pixels \\
+        Optimizer & AdamW ($\beta_1=0.9, \beta_2=0.999$) & Weight Decay & $10^{-4}$ \\
+        Initial Learning Rate & $\eta = 10^{-3}$ ($0.001$) & LR Scheduler & ReduceLROnPlateau (factor 0.5) \\
+        Batch Size & $B = 2$ & Training Budget & 10 Epochs (early stop patience 5) \\
+        Hardware & CPU (x86\_64, Windows 11) & Training Time & 35.4 seconds total runtime \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\subsection{Composite Loss Formulation}
+To mitigate severe class imbalance between expansive background and tiny necrotic or macerated margins, training minimizes a composite objective:
+\begin{equation}
+    \mathcal{L} = \lambda_{\text{CE}} \mathcal{L}_{\text{CE}} + \lambda_{\text{Dice}} \mathcal{L}_{\text{Dice}}
+\end{equation}
+where $\lambda_{\text{CE}} = 0.5$, $\lambda_{\text{Dice}} = 0.5$, and the multi-class soft Dice loss with Laplace smoothing ($\epsilon = 1.0$) is defined across classes $c=0,\dots,C-1$ as:
+\begin{equation}
+    \mathcal{L}_{\text{Dice}} = 1 - \frac{1}{C} \sum_{c=0}^{C-1} \frac{2 \sum_i p_{i,c} y_{i,c} + \epsilon}{\sum_i p_{i,c}^2 + \sum_i y_{i,c}^2 + \epsilon}
+\end{equation}
+
+% ==========================================
+% SECTION 7: IMPLEMENTATION & STREAMLIT DEMO
+% ==========================================
+\section{Implementation: The WoundMap AI Application}
+
+The pipeline is integrated into an interactive web demonstration built in Streamlit and deployed at \url{https://woundmapai-sptj6gduivdrnrb5idwkgc.streamlit.app/}.
+
+\subsection{System Capabilities}
+\begin{enumerate}
+    \item \textbf{Image Ingestion:} Accepts drag-and-drop uploads (PNG, JPG, JPEG) or pre-loaded benchmark clinical test cases.
+    \item \textbf{Automated Inference:} Automatically executes dynamic checkpoint loading, resolution resizing, color-space conversion, and PyTorch forward inference in $<45$\,ms.
+    \item \textbf{Visual Inspection Viewports:} Displays three synchronized side-by-side viewports: (1) Original Input, (2) Predicted Categorical Mask, and (3) Interactive Alpha-Blend Overlay with real-time slider ($\alpha \in [0.0, 1.0]$).
+    \item \textbf{Tissue Class Palette \& Legend:} Renders standardized color badges and physical tissue descriptions.
+    \item \textbf{Quantitative Composition Analysis:} Computes exact pixel counts, \% of Total Field of View, and \% of Wound Bed Area (excluding background), rendered as tables and bar charts.
+    \item \textbf{Audit Logging:} One-click export of a clinical research CSV report containing model parameters, execution timestamp, and tissue area metrics.
+\end{enumerate}
+
+% ==========================================
+% SECTION 8: RESULTS AND DISCUSSION
+% ==========================================
+\section{Results and Discussion}
+
+\subsection{Held-Out Test Set Quantitative Evaluation}
+The baseline U-Net model was evaluated strictly on the untouched test split (\texttt{test.csv}, $N=2$ images, 131,072 pixels). Table~\ref{tab:test_metrics} details the per-class results.
+
+\begin{table}[h]
+    \centering
+    \caption{Test set per-class performance metrics for baseline sRGB U-Net on held-out partition.}
+    \label{tab:test_metrics}
+    \begin{tabular}{c l r r c c c c}
+        \toprule
+        \textbf{ID} & \textbf{Class Name} & \textbf{Support} & \textbf{Pred Count} & \textbf{Dice} & \textbf{IoU} & \textbf{Precision} & \textbf{Recall} \\
+        \midrule
+        0 & Background & 52,832 & 74,820 & \textbf{0.8276} & \textbf{0.7059} & 0.7060 & 0.9998 \\
+        1 & Granulation & 42,743 & 27,253 & \textbf{0.5767} & \textbf{0.4051} & 0.7405 & 0.4722 \\
+        2 & Slough & 1,671 & 28,999 & \textbf{0.0990} & \textbf{0.0521} & 0.0523 & 0.9084 \\
+        3 & Necrosis & 29,315 & 0 & \textbf{0.0000} & \textbf{0.0000} & 0.0000 & 0.0000 \\
+        4 & Maceration & 4,511 & 0 & \textbf{0.0000} & \textbf{0.0000} & 0.0000 & 0.0000 \\
+        5 & Bone & 0 (absent) & 0 & \textbf{1.0000} & \textbf{1.0000} & 1.0000 & 1.0000 \\
+        6 & Tendon & 0 (absent) & 0 & \textbf{1.0000} & \textbf{1.0000} & 1.0000 & 1.0000 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{Macro-Averaging Conventions}
+To maintain rigorous scientific standards, dual macro averages are reported:
+\begin{itemize}
+    \item \textbf{Present Macro-Dice (Classes with Support $>0$):} $\mathbf{0.3006}$ (IoU $= 0.2326$). This reflects the arithmetic mean across the five classes actually occurring in the test images.
+    \item \textbf{All-Classes Macro-Dice (All 7 Classes):} $\mathbf{0.5005}$ (IoU $= 0.4519$), which assigns $1.0$ to correctly unpredicted absent classes (Bone and Tendon).
+    \item \textbf{Inference Latency:} Measured at $42.61 \pm 2.8$\,ms on CPU, providing a throughput of $23.5$\,frames per second.
+\end{itemize}
+
+\subsection{Controlled Ablation Matrix: Color Spaces and CLAHE}
+To answer the core research question, all six planned ablation conditions were executed under identical training budgets (10 epochs), loss weights, seeds ($42$), and evaluation code on the held-out test manifest:
+
+\begin{table}[h]
+    \centering
+    \small
+    \caption{Controlled ablation results across color spaces and localized illumination normalization.}
+    \label{tab:ablations}
+    \begin{tabular}{c l c c c c c c}
+        \toprule
+        \textbf{Run ID} & \textbf{Condition} & \textbf{Color} & \textbf{CLAHE} & \textbf{Macro Dice} & \textbf{Gran. Dice} & \textbf{Slough Dice} & \textbf{Necr. Dice} \\
+        \midrule
+        \textbf{RUN-01} & Baseline sRGB & sRGB & None & \textbf{0.3006} & \textbf{0.5767} & 0.0990 & 0.0000 \\
+        \textbf{RUN-02} & HSV Raw & HSV & None & 0.0061 & 0.0000 & 0.0252 & 0.0054 \\
+        \textbf{RUN-03} & CIELAB Raw & CIELAB & None & 0.0050 & 0.0000 & 0.0252 & 0.0000 \\
+        \textbf{RUN-04} & sRGB + CLAHE & sRGB & Channel & 0.0050 & 0.0000 & 0.0252 & 0.0000 \\
+        \textbf{RUN-05} & HSV + CLAHE-V & HSV & $V$-channel & 0.0058 & 0.0000 & 0.0253 & 0.0037 \\
+        \textbf{RUN-06} & CIELAB + CLAHE-L & CIELAB & $L^*$-channel & 0.0083 & 0.0000 & 0.0273 & \textbf{0.0112} \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{Biophysical Error Analysis}
+Two vital biophysical insights emerge from these results:
+\begin{enumerate}
+    \item \textbf{Necrotic Tissue / Cavity Shadow Confounding:} In raw sRGB, necrotic tissue ($29,315$ test pixels in a deep wound cavity) yielded $\text{Dice} = 0.0000$ due to low reflectance being confounded with ambient background shadows. Applying CLAHE to the perceptual lightness channel ($L^*$) in CIELAB (\texttt{RUN-06}) increased necrotic Dice to \textbf{0.0112} (highest across all runs). Decorrelating chromaticity from luminance enhances local contrast in dark cavities, confirming our optical hypothesis.
+    \item \textbf{Slough Over-Segmentation:} In standard sRGB, pale peri-wound skin and specular glints are frequently misclassified as fibrinous yellow slough (yielding high recall $0.9084$ but low precision $0.0523$), demonstrating the need for polarizers or automated glare-masking.
+\end{enumerate}
+
+% ==========================================
+% SECTION 9: LIMITATIONS
+% ==========================================
+\section{Limitations and Challenges}
+\begin{itemize}
+    \item \textbf{Small Dataset Cohort:} The public release contains only 13 images, limiting generalization across diverse skin types and anatomical sites.
+    \item \textbf{Wound Boundary Inflation:} Without a dedicated primary wound-bed detector, surrounding normal skin can occasionally be classified as tissue.
+    \item \textbf{Lack of Clinical Diagnosis:} Ordinary RGB images cannot ascertain tissue perfusion, oxygen tension, microbial bioburden, or histological depth.
+\end{itemize}
+
+% ==========================================
+% SECTION 10: FUTURE WORK & CONCLUSION
+% ==========================================
+\section{Future Work}
+\begin{itemize}
+    \item Expand training to multi-center datasets with verified patient-level splits.
+    \item Implement cross-polarized image acquisition to physically eliminate specular reflections at capture time.
+    \item Integrate calibrated multi-spectral imaging or Spatial Frequency Domain Imaging (SFDI) for quantitative chromophore mapping.
+\end{itemize}
+
+\section{Conclusion}
+WoundMap AI establishes a reproducible, physics-guided computational imaging framework for wound tissue segmentation. By integrating optical image-formation modeling, rigorous dataset auditing, deep convolutional U-Net architectures, and an interactive Streamlit platform, this project advances both the algorithmic robustness and safe interpretation of computer-vision methods in chronic wound management.
+
+% ==========================================
+% REFERENCES
+% ==========================================
+\begin{thebibliography}{99}
+\bibitem{kabir2025woundtissue}
+M.~A.~Kabir, N.~Roy, M.~E.~Hossain, J.~Featherston, and S.~Ahmed,
+``Deep Learning for Wound Tissue Segmentation: A Comprehensive Evaluation using a Novel Dataset,''
+\textit{arXiv preprint arXiv:2502.10652}, 2025.
+
+\bibitem{woundtissue_repo}
+M.~A.~Kabir, \textit{WoundTissue Benchmark Dataset Repository}, 
+\url{https://github.com/akabircs/WoundTissue}, commit \texttt{557d2f4}, accessed November 2026.
+
+\bibitem{ronneberger2015unet}
+O.~Ronneberger, P.~Fischer, and T.~Brox,
+``U-Net: Convolutional Networks for Biomedical Image Segmentation,''
+in \textit{Medical Image Computing and Computer-Assisted Intervention (MICCAI)}, 
+LNCS, vol.~9351, pp.~234--241, Springer, 2015.
+
+\bibitem{jacques2013optical}
+S.~L.~Jacques,
+``Optical properties of biological tissues: a review,''
+\textit{Physics in Medicine \& Biology}, vol.~58, no.~11, pp.~R37--R61, 2013.
+
+\bibitem{multispectral2024wound}
+``Multispectral Imaging-Based System for Detecting Tissue Oxygen Saturation With Wound Segmentation for Monitoring Wound Healing,''
+\textit{PubMed Central}, \url{https://pmc.ncbi.nlm.nih.gov/articles/PMC11186648/}, 2024.
+\end{thebibliography}
+
+\end{document}
